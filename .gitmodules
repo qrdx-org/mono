@@ -1,12 +1,12 @@
 [submodule "qrdx-website"]
 	path = qrdx-website
-	url = https://github.com/qrdx-org/qrdx-website.git
+	url = https://repo.qrdx.org/qrdx-org/qrdx-website.git
 [submodule "qrdx-explorer"]
 	path = qrdx-explorer
-	url = https://github.com/qrdx-org/qrdx-explorer.git
+	url = https://repo.qrdx.org/qrdx-org/qrdx-explorer.git
 [submodule "qrdx-trade"]
 	path = qrdx-trade
-	url = https://github.com/qrdx-org/qrdx-trade.git
+	url = https://repo.qrdx.org/qrdx-org/qrdx-trade.git
 [submodule "qrdx-wallet"]
 	path = qrdx-wallet
-	url = https://github.com/qrdx-org/qrdx-wallet.git
+	url = https://repo.qrdx.org/qrdx-org/qrdx-wallet.git
