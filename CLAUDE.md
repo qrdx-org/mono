@@ -1,0 +1,1 @@
+DO NOT MAKE ANY EDITS TO /qrdx-chain/ its strictly for refrence only
