@@ -10,3 +10,7 @@
 [submodule "qrdx-wallet"]
 	path = qrdx-wallet
 	url = https://github.com/qrdx-org/qrdx-wallet.git
+[submodule "qrdx-node"]
+	path = qrdx-node
+	url = https://github.com/qrdx-org/qrdx-chain.git
+	branch = test
