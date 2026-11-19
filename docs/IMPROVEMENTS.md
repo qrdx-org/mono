@@ -46,6 +46,33 @@ Checked in the code before writing this list, so nothing below repeats it:
 | 15 | **Bridge in the wallet**: deposit from Ethereum and withdraw back without leaving the wallet | Users bridge today through the explorer and docs | Wallet home → Bridge | blocked: testnet has no bridged assets (`bridge_getAssets` is empty), so neither direction can be built against anything real |
 | 16 | **Notifications**: funds received and price alerts (existed); account security (a waiting change, a recovery, a new controller, a key turned off) added. Still to do: order fills, liquidation warnings | A waiting change or recovery is the moment a user must act | `src/core/notify.ts`, `useWalletNotifications.ts` | account security done. They work only while the wallet is open; alerts while it is closed need a push server |
 | 17 | **Phone approves desktop**: pair by QR code so the iPhone app approves what a desktop site asks | Already exists as QRDX Connect (`src/core/connect`, `components/wallet/connect`) | — | done (existed) |
+| 22 | **Bitcoin and Solana**: an address on each from the recovery phrase (the paths other wallets use), balances, history, sending | Users hold more than EVM assets; one phrase should show all of it | `src/core/bitcoin.ts`, `solana.ts`, `other-chains.ts`, `OtherSendModal.tsx` | done, not committed. A SOL transfer and a token transfer (creating the recipient's account) passed devnet simulation, and a devnet send through the wallet confirmed. Bitcoin addresses match BIP-84's vectors and coin selection was checked against mainnet coins; no bitcoin has been sent, since no test account holds any |
+| 23 | **More EVM networks and your own**: Linea, Scroll, Unichain, Mantle, Gnosis, Celo, Sonic; any EVM network by RPC; `wallet_addEthereumChain` from sites | Sites ask to add networks; users expect to | `src/core/chains.ts`, `settings/NetworksPage.tsx`, the provider router | done, not committed. Every RPC and token contract checked live; dead endpoints (Ethereum's primary, Polygon's, Sepolia's, Amoy's, every Ankr fallback, all of Fantom's) replaced |
+| 24 | **Coin and network logos** | Initials on gradients read as unfinished | `components/wallet/CoinLogo.tsx`, `public/logos` | done, not committed. One colour, both themes; only listed tokens get a logo |
+| 25 | **Each network shows what works on it**: Receive offers only addresses the network can use, actions and tabs follow the network, test coins are not priced, QRDX testnet is the default until mainnet launches | Offering the PQ address on Ethereum invites a lost transfer; mainnet as the default opened on "Signing disabled" | Dashboard, Receive, Network selector | done, not committed |
+| 26 | **Prompt to protect the classic address** on home | The roadmap's follow-up to item 12 | Dashboard | done, not committed |
+| 28 | **One portfolio across every network**, QRDX first: assets grouped across networks, real prices, test value apart, unverified tokens folded, unified activity | Phantom, MetaMask and OKX all lead with one portfolio | `src/core/portfolio.ts`, `components/wallet/portfolio/` | done, not committed. 21 networks read in about 1.5 s |
+| 28a | **Portfolio value history**: the account's holdings replayed backwards through its transactions on every network, priced at each moment (DefiLlama) | A value chart that moves with deposits and swaps, not just price × today's holdings | `src/core/portfolio-history.ts`, `fetchBalanceEvents` in `history.ts` | done, not committed. Transactions read on Ethereum, Optimism, Base, Arbitrum, Polygon, zkSync, Unichain, Celo, Avalanche, Mantle (Blockscout and Routescan, keyless), Bitcoin (latest 50) and Solana (latest 40). BNB, Linea, Scroll, Gnosis and Sonic have no keyless explorer: drawn at today's holdings, and the chart says so. QRDX mainnet needs its node's history when it launches |
+| 29 | **Asset pages with market data** | "Actual price information": price, changes, chart, market cap, volume, supply, ATH | `portfolio/AssetPage.tsx`, `src/core/market.ts` | done, not committed |
+| 30 | **Trade where it is, or bring it to QRDX** | QRDX-first routing for assets on other networks | `src/core/aggregators.ts` (LI.FI, Jupiter), `src/core/bridge.ts`, `portfolio/TradeSheet.tsx` | done, not committed. Quotes live; LI.FI's transaction estimated successfully from a funded Base account; Jupiter's v0 transaction built and simulated. No swap executed: it would spend real funds. The bridge path is untested: testnet bridges nothing yet |
+| 27 | **EVM activity** | Etherscan retired its keyless API, so EVM history was empty | `src/core/history.ts` (Blockscout) | done, not committed. BNB, Avalanche, Linea, Mantle, Gnosis, Scroll and Sonic have no keyless explorer API and show only what the wallet sent |
+
+### What Phantom, OKX and MetaMask have that the wallet does not yet
+
+Checked November 19, 2026. All three lead with a multichain portfolio and in-app swaps through aggregators (Phantom: LI.FI; MetaMask: its own aggregation, 0.875 %; OKX: its DEX API), and Phantom and MetaMask offer perps through Hyperliquid, which QRDX's own exchange covers here.
+
+| # | Item | Seen in | Status |
+| --- | --- | --- | --- |
+| 31 | **Cross-network swaps in one step** (e.g. USDC on Base to SOL on Solana): LI.FI quotes these already; needs the destination address per network and bridge status tracking | MetaMask, Phantom, OKX | todo |
+| 32 | **Token approvals manager**: list and revoke allowances a site holds | OKX, MetaMask (Portfolio), Rabby | todo |
+| 33 | **Watch-only accounts**: follow any address's portfolio | OKX, Rabby | todo |
+| 34 | **Hardware wallets** (Ledger) for the classic keys | all three | todo |
+| 35 | **Transaction scanning on other networks** (simulation exists on QRDX and EVM calls; add a threat feed for drainers and address poisoning) | MetaMask (Blockaid), Phantom | todo |
+| 36 | **Staking SOL and ETH** (native or liquid) beside QRDX staking | Phantom, OKX, MetaMask | todo |
+| 37 | **Buy and sell with a card or bank** | all three | todo: needs a provider agreement |
+| 38 | **A swap fee for QRDX** (LI.FI and Jupiter accept an integrator fee) | all three charge one | todo: needs a decision; none is charged now beyond LI.FI's keyless 0.25 % |
+| 39 | **NFTs on other networks** | Phantom, OKX | todo |
+| 40 | **MEV-protected sends on Ethereum** (a private RPC) | MetaMask (Smart Transactions), OKX | todo |
 
 ## Explorer
 
